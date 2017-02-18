@@ -6,14 +6,30 @@ services:
             context: ./
             dockerfile: web.docker
         volumes:
-            - ./:/var/www
+            - ../:/var/www
         ports:
-            - '8080:80'
+            - '8000:80'
         links:
             - app
     app:
+        container_name: boardbox
         build:
             context: ./
             dockerfile: app.docker
         volumes:
-            - ./:/var/www
+            - ../:/var/www
+    mysql:
+        image: mysql
+        container_name: bb_mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: boardbox
+            MYSQL_USER: boardbox
+            MYSQL_PASSWORD: secret
+        ports:
+            - '3306:3306'
+        volumes:
+            - ../dbdata:/var/lib/mysql
+    redis:
+        image: redis
+        container_name: bb_redis
