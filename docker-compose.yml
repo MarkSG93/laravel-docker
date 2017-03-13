@@ -9,8 +9,7 @@ services:
             - ../:/var/www
         ports:
             - '8000:80'
-        links:
-            - app
+
     app:
         container_name: boardbox
         build:
@@ -18,6 +17,7 @@ services:
             dockerfile: app.docker
         volumes:
             - ../:/var/www
+
     mysql:
         image: mysql
         container_name: bb_mysql
@@ -30,6 +30,7 @@ services:
             - '3306:3306'
         volumes:
             - ../dbdata:/var/lib/mysql
+            
     redis:
         image: redis
         container_name: bb_redis
